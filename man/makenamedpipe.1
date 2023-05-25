@@ -1,0 +1,53 @@
+.TH MAKENAMEDPIPE 1
+.SH NAME
+makenamedpipe \- create a named pipe
+.SH SYNOPSIS
+.B makenamedpipe
+[ tag ]
+.SH DESCRIPTION
+The
+.I makenamedpipe
+creates a named pipe,
+and writes its name to standard output.
+.PP
+The file name of the pipe is \*(lqfifo-\*(rq
+followed the numeric id of the user.
+If a
+.I tag
+is given, this is followed by \*(lq-\*(rq and the
+.IR tag .
+The pipe is located in
+.B $TMPDIR
+if that is set, or in /tmp otherwise,
+and created with mode 600 if it does not already exist.
+.SH EXAMPLE
+.I Makenamedpipe
+can be used in conjuction with
+.BR take (1)
+to split the live standard output and standard error of a command
+across terminal windows.
+In one terminal,
+.IP "" .2i
+.B $ 
+program 2>$(makenamedpipe)
+.br
+.I standard output of program
+.I ...
+.PP
+In another terminal,
+.IP "" .2i
+.B $ 
+take
+.br
+.I standard error of program
+.I ...
+.SH ENVIRONMENT
+.I Put
+uses
+.BR TMPDIR ,
+if set, for the location for its named pipe.
+.SH SEE ALSO
+.BR put (1),
+.BR take (1),
+.BR freeze (1),
+.BR thaw (1).

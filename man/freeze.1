@@ -1,0 +1,35 @@
+.TH FREEZE 1
+.SH NAME
+freeze \- wait for a thaw
+.SH SYNOPSIS
+.B freeze
+[ tag ]
+.SH DESCRIPTION
+The
+.I freeze
+command waits for a corresponding
+.BR thaw (1)
+command to be run,
+and then exits.
+.PP
+This is done by reading from a named pipe.
+The file name of the pipe is \*(lqfifo-\*(rq
+followed the numeric id of the user,
+followed by \*(lq-freeze\*(rq.
+If a
+.I tag
+is given, this takes the place of \*(lqfreeze\*(rq.
+The pipe is located in
+.B $TMPDIR
+if that is set, or in /tmp otherwise,
+and created with mode 600 if it does not already exist.
+.SH ENVIRONMENT
+.I freeze
+uses
+.BR TMPDIR ,
+if set, for the location for its named pipe.
+.SH SEE ALSO
+.BR thaw (1),
+.BR put (1),
+.BR take (1),
+.BR makenamedpipe (1).

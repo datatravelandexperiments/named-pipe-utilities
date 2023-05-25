@@ -1,0 +1,4 @@
+#!/bin/sh
+fifo="${TMPDIR:-/tmp}/fifo-$(id -u)${1:+-}${1}"
+test -p "$fifo" || mkfifo -m 600 "$fifo"
+echo "$fifo"

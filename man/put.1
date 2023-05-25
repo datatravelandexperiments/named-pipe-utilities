@@ -1,0 +1,49 @@
+.TH PUT 1
+.SH NAME
+put \- write to a named pipe
+.SH SYNOPSIS
+.B put
+[ tag ]
+.SH DESCRIPTION
+The
+.I put
+command writes its standard input to a named pipe,
+intended to be read by
+.BR take (1).
+.PP
+The file name of the pipe is \*(lqfifo-\*(rq
+followed the numeric id of the user.
+If a
+.I tag
+is given, this is followed by \*(lq-\*(rq and the
+.IR tag .
+The pipe is located in
+.B $TMPDIR
+if that is set, or in /tmp otherwise,
+and created with mode 600 if it does not already exist.
+.SH EXAMPLE
+In one terminal,
+.IP "" .2i
+.B $ 
+echo 'I am an example!' | put
+.br
+.B $ 
+.PP
+In another terminal,
+.IP "" .2i
+.B $ 
+take
+.br
+I am an example!
+.br
+.B $ 
+.SH ENVIRONMENT
+.I Put
+uses
+.BR TMPDIR ,
+if set, for the location for its named pipe.
+.SH SEE ALSO
+.BR take (1),
+.BR freeze (1),
+.BR thaw (1),
+.BR makenamedpipe (1).
